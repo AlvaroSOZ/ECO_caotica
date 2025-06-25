@@ -118,7 +118,7 @@ def actualizar_estado_banco():
     elif creci_anterior <= -2.00:
         prob_cierre = 0.3
 
-    st.session_state.estado_banco = "Cerrado" if random.random() < prob_cierre else "Abierto"
+    st.session_state.estado_banco = "Cerrado🟥🟥🟥" if random.random() < prob_cierre else "Abierto 🟩🟩🟩"
 
 def reiniciar_juego():
     for key in st.session_state.keys():
@@ -196,22 +196,28 @@ else:
 
 st.markdown(f"""
 <div style='
-    border: 2px solid #0000;
+    border: 2px solid #000;
     border-radius: 12px;
     padding: 20px;
-    background-color: #2c3e50 ;
+    background-color: #2c3e50;
     color: white;
+    font-size: 16px;
+    font-family: "Segoe UI", "Roboto", "Helvetica Neue", sans-serif;
 '>
-<h4 style='margin-top: 0;'>📊 Valores actuales</h4>
-<p style='font-size: 16px;'>
-🧮 <strong>Inflación t-1 estimada:</strong>
+
+<p>
+📈 <strong>Inflación <sub><em>t-1</em></sub> estimada:</strong>
 <span style='font-size: 20px; font-weight: bold;'>{inflacion_display}</span><br>
+
 💼 <strong>Sueldo actual:</strong>
 <span style='font-size: 20px; font-weight: bold;'>S/ {fila_actual['Sueldo']}</span><br>
+
 💰 <strong>Ahorro disponible:</strong>
 <span style='font-size: 20px; font-weight: bold;'>S/ {round(st.session_state.ahorro, 2)}</span><br>
-📉 <strong>PBI t-1:</strong>
+
+📉 <strong>PBI <sub><em>t-1</em></sub>:</strong>
 <span style='font-size: 20px; font-weight: bold;'>{creci_anterior}%</span><br>
+
 🏦 <strong>Estado de los Bancos:</strong>
 <span style='font-size: 20px; font-weight: bold;'>{st.session_state.estado_banco}</span>
 </p>
