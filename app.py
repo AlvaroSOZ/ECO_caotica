@@ -18,7 +18,10 @@ def guardar_resultado_en_sheets(periodo_perdida, consumos):
         ]
         creds_dict = dict(st.secrets["gcp_service_account"])
         creds = Credentials.from_service_account_info(creds_dict, scopes=scope)
-        st.write("🔑 Email de cuenta de servicio:", creds.service_account_email)# ✅ Corrección aquí
+        st.write("🔑 Email de cuenta de servicio:", creds.service_account_email)
+        st.write(creds.service_account_email)
+
+        # ✅ Corrección aquí
         client = gspread.authorize(creds)
         sheet = client.open("EconomiaCaoticaResultados").sheet1
 
