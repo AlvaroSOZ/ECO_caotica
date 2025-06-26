@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "economia-caotica",
+  "private_key_id": "942bd0939836b56b4d2f565c4e167838a863bfe4",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC2dXK5mPojo+eB\nTbl5Run6B8M4Bwj8EYEHZTzDveTPc9PerT8qCROJumJs9gzHH1S1fu7TJRtpuK4J\n2RguD4uJdQrSXXLbIqsrL54MBQS2AdqqwG8bDkGbs6KfBvpA8fF5d7f2FyW3u1dp\n5MCy7oKm2neNa0c6qvq59G9MEEhCMmfw7Oczy8W2Fyg/FoqBLqppW75p9UUJ0JmC\nWjSvNzCKL63+p7Wp/pDwy+SgNZQbiMyNsHrPpleuSXV1CNLrBnQH2DMJ6p0xdYc8\n7LjYUUs+rnv2XoiX7YO9w0/NPeriZVeIThJk676Lh1+zZKotKkFf0y3v8e15aiIc\nP49CCfIJAgMBAAECggEAKCbUZk9pzGoHSgcmp6+ZUbJfnXa+3WmksVHv+0tQjO56\nU2hgnAl/STHA8yV6Tl9wrrgOKlziGXPQqM4jag91r3wYM47o9Zw9erVx3EdGcB8c\nVbMfQB71BSSUxtYsQBp9/zL/QqJ5ZGNPqzfxx+6AxeMRqAdRl3GE12MZEu4KWLaL\npUL7k7CeWDL4CiM5/+9512LsOsVzD7rtIWZZG67vCtXOzZa0oeDtaM7/B7qnmf7U\nae1eiIecUrlkWNPJx/kcYni+fG34+vEcXFzE2tJX4KknkwGc8EL7ZuLTFcB1tymq\nxlO1POCKp491iecy2FhRMesIzCj0QDknDl3cJDLhWQKBgQDmPTPVNgw/2WEPnRdd\naLYtUE4Lwd450HsERVtTN6yZMaDISAE4mvgUXOfnKCuaFca4nHGDEDFdcJE7sHoJ\neHix8v+YIejZ5ofRA6DJi3JmVBiY4pQKlIyF3fGTDcK25CmC0h+shpdqk0nTzwg+\nykGGL69+wecA1ocELyfnAZBVowKBgQDK36mTqmM4B1xPJKeXix0cu2MxHiM5SKK2\nSMF9bHbW7tH3OfFkcicf/rT0J5k8gUJxgqnIdkAsAgwGdun6nvxNibte2kuUoLK4\nk4VasvOCEBeRtJdDyxM/8dB+yba2d5aSySp3Cm0LlKg+cIHTGAQleY1S0dmkKD2f\nX1raKmkcYwKBgCs0TOezjrTki8wsRFgo8BasvRiDtrnOn2b7xNlm1yKgJ3Wt3VzL\n58WacYH1DcmKUJIP+VUI0tqf5wD2atAgJTXvTXs00cch9VaJgcCQRFVjboIx8mnR\n2lS8gzp/GIzNX+TGnV74mq1LGk1+yiNOPOF7TUlSBZEosIled/RnXLhVAoGAMG4W\nUE8DopN3QNlyPKYUDBDbzBTyubESTsutjSCAeizG6OrnKmBp4KRwVDzDwwLkdq6H\nk3hPN3JBpqVqk86yUlxH44vfMRrvr0pgMle389udlMX0ulVXQhOa/zluKb8Argfh\n4EsX3wTc6RL4mwkHrF6JEzVPbHXCyDH+QUiQkRsCgYEAvM8SIg8q+zoB+KelwRbK\ngrGjGeqLupwiAVfV267HOjlPsUSWbYAbGJLcmzwmRUwBPK7RtE2EozGBixDSykWr\nTyW8JX2ymsa42byes4Gc19dOqzK9t32YzJ3c3IHToUhlTEj20LJZhrVP7AvpzQuN\nDIMvxB1Y6WDHTG71bQUhiZ8=\n-----END PRIVATE KEY-----\n",
+  "client_email": "economiacaotica@economia-caotica.iam.gserviceaccount.com",
+  "client_id": "115358636971815298128",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/economiacaotica%40economia-caotica.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
