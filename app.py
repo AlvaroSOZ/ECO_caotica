@@ -5,7 +5,7 @@ import numpy as np
 import random
 from datetime import datetime
 import gspread
-from oauth2client.service_account import ServiceAccountCredentials
+from google.oauth2.service_account import Credentials  # ✅ Corrección aquí
 
 # -----------------------------
 # FUNCION PARA GUARDAR RESULTADOS EN GOOGLE SHEETS
@@ -16,7 +16,8 @@ def guardar_resultado_en_sheets(periodo_perdida, consumos):
             "https://spreadsheets.google.com/feeds",
             "https://www.googleapis.com/auth/drive"
         ]
-        creds = ServiceAccountCredentials.from_json_keyfile_name("credenciales.json", scope)
+        creds_dict = dict(st.secrets["gcp_service_account"])
+        creds = Credentials.from_service_account_info(creds_dict, scopes=scope)  # ✅ Corrección aquí
         client = gspread.authorize(creds)
         sheet = client.open("EconomiaCaoticaResultados").sheet1
 
@@ -25,7 +26,6 @@ def guardar_resultado_en_sheets(periodo_perdida, consumos):
         sheet.append_row(fila)
     except Exception as e:
         st.error(f"❌ Error al guardar en Google Sheets: {e}")
-
 # -----------------------------
 # CARGA DE DATOS FIJOS DEL JUEGO
 # -----------------------------
