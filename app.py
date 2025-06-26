@@ -228,7 +228,7 @@ st.markdown(f"""
 '>
 
 <p>
-\ud83d\udcc8 <strong>Inflaci\u00f3n <sub><em>t-1</em></sub> estimada:</strong>
+\ud83d\udcc8 <strong>📈 📈 📈 📈 Inflaci\u00f3n <sub><em>t-1</em></sub> estimada:</strong>
 <span style='font-size: 20px; font-weight: bold;'>{inflacion_display}</span><br>
 
 \ud83d\udcbc <strong>Sueldo actual:</strong>
