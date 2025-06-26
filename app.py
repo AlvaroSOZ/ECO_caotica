@@ -3,6 +3,24 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import random
+from datetime import datetime
+import gspread
+from oauth2client.service_account import ServiceAccountCredentials
+
+# -----------------------------
+# FUNCION PARA GUARDAR RESULTADOS EN GOOGLE SHEETS
+# -----------------------------
+def guardar_resultado_en_sheets(periodo_perdida, consumos):
+    scope = ["https://spreadsheets.google.com/feeds",
+             "https://www.googleapis.com/auth/drive"]
+    creds = ServiceAccountCredentials.from_json_keyfile_name("credenciales.json", scope)
+    client = gspread.authorize(creds)
+
+    sheet = client.open("EconomiaCaoticaResultados").sheet1
+
+    fecha_hora = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    fila = [fecha_hora, periodo_perdida] + consumos
+    sheet.append_row(fila)
 
 # -----------------------------
 # CARGA DE DATOS FIJOS DEL JUEGO
@@ -91,7 +109,7 @@ def procesar_consumo(consumo_usuario: int):
         sobrante = sueldo - consumo_usuario
         nuevo_ahorro += sobrante
 
-    if st.session_state.estado_banco == "Cerrado":
+    if st.session_state.estado_banco.startswith("Cerrado"):
         nuevo_ahorro *= 0.95
 
     st.session_state.ahorro = round(nuevo_ahorro, 2)
@@ -131,7 +149,7 @@ def reiniciar_juego():
 periodo = st.session_state.periodo_actual
 fila_actual = df.iloc[periodo - 1]
 
-st.title("💥 Economía caótica")
+st.title("\ud83d\udca5 Econom\u00eda ca\u00f3tica")
 st.markdown(f"## Periodo actual: {periodo}")
 
 st.markdown("Ingrese la cantidad de consumo para el periodo:")
@@ -154,7 +172,7 @@ if st.session_state.perdio:
     periodo_final = st.session_state.periodo_actual
     st.markdown(f"""
     <div style="padding: 1rem; border: 2px solid red; border-radius: 10px; background-color: #212f3d ;">
-        <h3 style="color: red; text-align: center;">☠️☠️ ¡Perdiste! ☠️☠️</h3>
+        <h3 style="color: red; text-align: center;">\u2618\ufe0f\u2618\ufe0f \u00a1Perdiste! \u2618\ufe0f\u2618\ufe0f</h3>
         <p style="text-align: center; font-size: 18px;">
             Sobreviviste hasta el periodo:<br>
             <span style="font-size: 48px; font-weight: bold; color: white;">{periodo_final}</span>
@@ -162,6 +180,9 @@ if st.session_state.perdio:
     </div>
     """, unsafe_allow_html=True)
 
+    # Guardar resultados al perder
+    consumos = [item["Consumo"] for item in st.session_state.historial]
+    guardar_resultado_en_sheets(periodo_final, consumos)
 
     if periodo_final <= 5:
         ruta_imagen = "pokemons/flojo.png"  
@@ -174,15 +195,13 @@ if st.session_state.perdio:
     else:
         ruta_imagen = "pokemons/inteligente.png"
 
-    st.image(ruta_imagen, caption="Tu compañero de la caída...", use_container_width=True)
+    st.image(ruta_imagen, caption="Tu compa\u00f1ero de la ca\u00edda...", use_container_width=True)
 
     st.stop()
 
 # -----------------------------
-# VISUALIZACIÓN DE VARIABLES📈📈📈
+# VISUALIZACI\u00d3N DE VARIABLES\ud83d\udcca\ud83d\udcca\ud83d\udcca
 # -----------------------------
-
-
 
 if periodo > 1:
     inflacion_real = df.iloc[periodo - 2]["Inflacion"]
@@ -194,6 +213,9 @@ else:
     inflacion_display = "0% a 0%"
     creci_anterior = 0
 
+with st.container():
+    st.markdown("### \ud83d\udcca Valores actuales:")
+
 st.markdown(f"""
 <div style='
     border: 2px solid #000;
@@ -202,36 +224,24 @@ st.markdown(f"""
     background-color: #2c3e50;
     color: white;
     font-size: 16px;
-    font-family: "Segoe UI", "Roboto", "Helvetica Neue", sans-serif;
+    font-family: \"Segoe UI\", \"Roboto\", \"Helvetica Neue\", sans-serif;
 '>
 
 <p>
-📈 <strong>Inflación <sub><em>t-1</em></sub> estimada:</strong>
+\ud83d\udcc8 <strong>Inflaci\u00f3n <sub><em>t-1</em></sub> estimada:</strong>
 <span style='font-size: 20px; font-weight: bold;'>{inflacion_display}</span><br>
 
-💼 <strong>Sueldo actual:</strong>
+\ud83d\udcbc <strong>Sueldo actual:</strong>
 <span style='font-size: 20px; font-weight: bold;'>S/ {fila_actual['Sueldo']}</span><br>
 
-💰 <strong>Ahorro disponible:</strong>
+\ud83d\udcb0 <strong>Ahorro disponible:</strong>
 <span style='font-size: 20px; font-weight: bold;'>S/ {round(st.session_state.ahorro, 2)}</span><br>
 
-📉 <strong>PBI <sub><em>t-1</em></sub>:</strong>
+\ud83d\udcc9 <strong>PBI <sub><em>t-1</em></sub>:</strong>
 <span style='font-size: 20px; font-weight: bold;'>{creci_anterior}%</span><br>
 
-🏦 <strong>Estado de los Bancos:</strong>
+\ud83c\udfe6 <strong>Estado de los Bancos:</strong>
 <span style='font-size: 20px; font-weight: bold;'>{st.session_state.estado_banco}</span>
 </p>
 </div>
 """, unsafe_allow_html=True)
-
-
-
-# -----------------------------
-# GRÁFICOS DE LÍNEAS
-# -----------------------------
-
-#st.subheader("📈 Evolución de la Inflación")
-#st.line_chart(df.iloc[:periodo][["Periodo", "Inflacion"]].set_index("Periodo"))
-
-#st.subheader("📉 Evolución del PBI")
-#st.line_chart(df.iloc[:periodo][["Periodo", "CRECI"]].set_index("Periodo"))
