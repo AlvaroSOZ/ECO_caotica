@@ -182,7 +182,7 @@ if st.session_state.perdio:
 
     # Guardar resultados al perder
     consumos = [item["Consumo"] for item in st.session_state.historial]
-    guardar_resultado_en_sheets(periodo_final, consumos)
+    guardar_resultado_en_sheets(periodo_final, [x["Consumo"] for x in st.session_state.historial])
 
     if periodo_final <= 5:
         ruta_imagen = "pokemons/flojo.png"  
