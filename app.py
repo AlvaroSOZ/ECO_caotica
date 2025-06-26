@@ -3,33 +3,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import random
-from datetime import datetime
-import gspread
-from google.oauth2.service_account import Credentials  # ✅ Corrección aquí
 
-# -----------------------------
-# FUNCION PARA GUARDAR RESULTADOS EN GOOGLE SHEETS
-# -----------------------------
-def guardar_resultado_en_sheets(periodo_perdida, consumos):
-    try:
-        scope = [
-            "https://spreadsheets.google.com/feeds",
-            "https://www.googleapis.com/auth/drive"
-        ]
-        creds_dict = dict(st.secrets["gcp_service_account"])
-        creds = Credentials.from_service_account_info(creds_dict, scopes=scope)
-        st.write("🔑 Email de cuenta de servicio:", creds.service_account_email)
-        st.write(creds.service_account_email)
-
-        # ✅ Corrección aquí
-        client = gspread.authorize(creds)
-        sheet = client.open("EconomiaCaoticaResultados").sheet1
-
-        fecha_hora = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        fila = [fecha_hora, periodo_perdida] + consumos
-        sheet.append_row(fila)
-    except Exception as e:
-        st.error(f"❌ Error al guardar en Google Sheets: {e}")
 # -----------------------------
 # CARGA DE DATOS FIJOS DEL JUEGO
 # -----------------------------
@@ -117,7 +91,7 @@ def procesar_consumo(consumo_usuario: int):
         sobrante = sueldo - consumo_usuario
         nuevo_ahorro += sobrante
 
-    if st.session_state.estado_banco.startswith("Cerrado"):
+    if st.session_state.estado_banco == "Cerrado":
         nuevo_ahorro *= 0.95
 
     st.session_state.ahorro = round(nuevo_ahorro, 2)
@@ -178,11 +152,6 @@ with col2:
 
 if st.session_state.perdio:
     periodo_final = st.session_state.periodo_actual
-
-    # Guardar resultados en Google Sheets
-    consumos = [item["Consumo"] for item in st.session_state.historial]
-    guardar_resultado_en_sheets(periodo_final, consumos)
-
     st.markdown(f"""
     <div style="padding: 1rem; border: 2px solid red; border-radius: 10px; background-color: #212f3d ;">
         <h3 style="color: red; text-align: center;">☠️☠️ ¡Perdiste! ☠️☠️</h3>
@@ -192,6 +161,7 @@ if st.session_state.perdio:
         </p>
     </div>
     """, unsafe_allow_html=True)
+
 
     if periodo_final <= 5:
         ruta_imagen = "pokemons/flojo.png"  
@@ -205,11 +175,15 @@ if st.session_state.perdio:
         ruta_imagen = "pokemons/inteligente.png"
 
     st.image(ruta_imagen, caption="Tu compañero de la caída...", use_container_width=True)
+
     st.stop()
 
 # -----------------------------
 # VISUALIZACIÓN DE VARIABLES📈📈📈
 # -----------------------------
+
+
+
 if periodo > 1:
     inflacion_real = df.iloc[periodo - 2]["Inflacion"]
     inflacion_min = round(inflacion_real * 0.80, 2)
@@ -252,3 +226,16 @@ st.markdown(f"""
 </p>
 </div>
 """, unsafe_allow_html=True)
+
+
+
+
+# -----------------------------
+# GRÁFICOS DE LÍNEAS
+# -----------------------------
+
+#st.subheader("📈 Evolución de la Inflación")
+#st.line_chart(df.iloc[:periodo][["Periodo", "Inflacion"]].set_index("Periodo"))
+
+#st.subheader("📉 Evolución del PBI")
+#st.line_chart(df.iloc[:periodo][["Periodo", "CRECI"]].set_index("Periodo"))
