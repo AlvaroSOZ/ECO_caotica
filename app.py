@@ -1,4 +1,4 @@
-## app.py
+# app.py
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -246,8 +246,5 @@ st.markdown(f"""
 🏦 <strong>Estado de los Bancos:</strong>
 <span style='font-size: 20px; font-weight: bold;'>{st.session_state.estado_banco}</span>
 </p>
-</div>
-""", unsafe_allow_html=True)
-
 </div>
 """, unsafe_allow_html=True)
