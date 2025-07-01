@@ -16,7 +16,7 @@ data = {
         553.93, 670.26, 817.71, 1004.78, 1245.93
     ],
     "Inflacion": [
-        4.00, 5.00, 6.00, 7.00, 8.00,
+        5.00, 5.00, 6.00, 7.00, 8.00,
         9.00, 10.00, 11.00, 12.00, 13.00,
         14.00, 15.00, 16.35, 17.61, 18.77,
         20.00, 21.00, 22.00, 22.88, 24.00
@@ -191,7 +191,7 @@ if periodo > 1:
     inflacion_display = f"{inflacion_min}% a {inflacion_max}%"
     creci_anterior = df.iloc[periodo - 2]["CRECI"]
 else:
-    inflacion_display = "0% a 0%"
+    inflacion_display = "0.25% a 1.18%"
     creci_anterior = 0
 
 with st.container():
